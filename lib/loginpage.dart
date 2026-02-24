@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gym/muscle_page.dart';
+import 'package:gym/firstpage.dart';
 
 class Loginpage extends StatelessWidget {
   const Loginpage({super.key});
@@ -59,16 +59,30 @@ class Loginpage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            SizedBox(
+             SizedBox(
               height: 100,
               width: 300,
               child: TextField(
-                keyboardType: TextInputType.numberWithOptions(),
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  helper: Text('Enter your password'),
-                  labelText: 'Password',
+                  
+                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 0, 255, 26),
+                    width: 2.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                
+                labelText: 'Password',
+                prefixIcon: Icon(Icons.lock, color: const Color.fromARGB(255, 0, 255, 26),),
                 ),
-              obscureText: true,
               ),
             ),
             SizedBox(height: 330),
@@ -102,7 +116,7 @@ class Loginpage extends StatelessWidget {
                     child:ElevatedButton(onPressed: (){
                       Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const MusclePage()),
+                      MaterialPageRoute(builder: (context) => const FirstPage()),
                       );
                     },
                     style:ElevatedButton.styleFrom(

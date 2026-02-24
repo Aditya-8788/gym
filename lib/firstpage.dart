@@ -1,54 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:gym/loginpage.dart';
+import 'muscle_page.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+class FirstPage extends StatelessWidget {
+  const FirstPage({super.key});
+
+  final List<String> muscles = const [
+    "chest",
+    "back",
+    "biceps",
+    "triceps",
+    "shoulders",
+    "quads",
+    "hamstrings"
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(height: 150),
-            
-              Text('Welcome to My App', 
-              style: TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.w900,
+      appBar: AppBar(title: const Text("Select Muscle")),
+      body: ListView.builder(
+        itemCount: muscles.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(muscles[index].toUpperCase()),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => MusclePage(muscle: muscles[index]),
                 ),
-            ),
-            SizedBox(height: 400),
-            Text("dataBuild strength. Build discipline.Results start with consistency.Learn exercises. Understand muscles.Train smarter for better results.",style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-              color: Colors.grey,
-            )),
-            SizedBox(height: 50),
-            SizedBox(
-              height: 50,
-              width: 300,
-              
-              child: ElevatedButton(onPressed:() {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const Loginpage()));
-              },
-               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepOrangeAccent, 
-                minimumSize: const Size(40, 50), 
-                shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-               child: Text('Get Started',
-                style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                
-                ),
-              ))
-            ),
-          ],
-        ),
+              );
+            },
+          );
+        },
       ),
     );
   }
