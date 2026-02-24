@@ -15,11 +15,11 @@ class Exercise {
 
   factory Exercise.fromJson(Map<String, dynamic> json) {
     return Exercise(
-      name: json['name'],
-      bodyPart: json['bodyPart'],
-      equipment: json['equipment'],
-      target: json['target'],
-      gifUrl: json['gifUrl'],
+      name: json['name'] ?? "",
+      bodyPart: json['bodyPart'] ?? "",
+      equipment: json['equipment'] ?? "",
+      target: json['primaryMuscles'][0],
+      gifUrl: json['images'][0],
     );
   }
 }

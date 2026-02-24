@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:gym/specific_muscle_page.dart';
 import 'muscle_page.dart';
 
 class FirstPage extends StatelessWidget {
   const FirstPage({super.key});
 
   final List<String> muscles = const [
-    "chest",
-    "back",
-    "biceps",
-    "triceps",
-    "shoulders",
-    "quads",
-    "hamstrings"
+    "Chest",
+    "Back",
+    "Biceps",
+    "Triceps",
+    "Legs",
+    "Shoulders",
+    "Abs"
   ];
 
   @override
@@ -21,13 +22,16 @@ class FirstPage extends StatelessWidget {
       body: ListView.builder(
         itemCount: muscles.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(muscles[index].toUpperCase()),
+           return ListTile(
+            title: Text(muscles[index]),
+
             onTap: () {
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => MusclePage(muscle: muscles[index]),
+                  builder: (_) =>
+                      SpecificMusclePage(muscle: muscles[index]),
                 ),
               );
             },

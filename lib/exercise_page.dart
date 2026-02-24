@@ -50,23 +50,41 @@ import 'package:flutter/material.dart';
 import 'models/exercise_model.dart';
 
 class ExercisePage extends StatelessWidget {
+
   final Exercise exercise;
 
-  const ExercisePage({super.key, required this.exercise, required String subMuscle});
+  const ExercisePage({
+    super.key,
+    required this.exercise,
+  });
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: AppBar(title: Text(exercise.name)),
+
+      appBar: AppBar(
+        title: Text(exercise.name),
+      ),
+
       body: SingleChildScrollView(
+
         padding: const EdgeInsets.all(16),
+
         child: Column(
+
           children: [
+
             Image.network(exercise.gifUrl),
+
             const SizedBox(height: 20),
+
             Text("Body Part: ${exercise.bodyPart}"),
-            Text("Target: ${exercise.target}"),
+
+            Text("Target Muscle: ${exercise.target}"),
+
             Text("Equipment: ${exercise.equipment}"),
+
           ],
         ),
       ),

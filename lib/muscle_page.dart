@@ -82,44 +82,67 @@ import 'services/api_service.dart';
 import 'exercise_page.dart';
 
 class MusclePage extends StatelessWidget {
+
   final String muscle;
 
   const MusclePage({super.key, required this.muscle});
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: AppBar(title: Text(muscle.toUpperCase())),
+
+      appBar: AppBar(
+        title: Text(muscle.toUpperCase()),
+      ),
+
       body: FutureBuilder<List<Exercise>>(
+
         future: ApiService.fetchExercisesByMuscle(muscle),
+
         builder: (context, snapshot) {
 
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
-         if (snapshot.hasError) {
-          return Center(
-            child: Text("Error: ${snapshot.error}"),
-          );
-        }
+          if (snapshot.hasError) {
+            return Center(
+              child: Text(snapshot.error.toString()),
+            );
+          }
 
           final exercises = snapshot.data!;
 
+          if (exercises.isEmpty) {
+            return const Center(child: Text("No exercises found"));
+          }
+
           return ListView.builder(
+
             itemCount: exercises.length,
+
             itemBuilder: (context, index) {
+
+              final exercise = exercises[index];
+
               return ListTile(
-                title: Text(exercises[index].name),
-                subtitle: Text("Equipment: ${exercises[index].equipment}"),
+
+                title: Text(exercise.name),
+
+                subtitle:
+                    Text("Equipment: ${exercise.equipment}"),
+
                 onTap: () {
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                      MusclePage(muscle: exercises[index].target.toLowerCase()),
+                      builder: (_) =>
+                          ExercisePage(exercise: exercise),
                     ),
                   );
+
                 },
               );
             },
