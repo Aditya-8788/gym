@@ -19,19 +19,21 @@ class Loginpage extends StatelessWidget {
                   style: TextStyle(
                   fontSize: 50,
                   fontWeight: FontWeight.w800,
+                  color: const Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Text('This is the login page.',
+            SizedBox(height: 40),
+            Text('Enter your email ',
               style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w400,
-              color: Colors.grey,
+              color: const Color.fromARGB(255, 120, 120, 120),
               
               ) 
             ),
+            SizedBox(height: 20), 
             SizedBox(
               height: 100,
               width: 300,
@@ -46,7 +48,7 @@ class Loginpage extends StatelessWidget {
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: BorderSide(color: const Color.fromARGB(255, 4, 4, 4)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   border: OutlineInputBorder(
@@ -58,9 +60,17 @@ class Loginpage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            //SizedBox(height: 20),
+            Text('Enter your password',
+              style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: const Color.fromARGB(255, 120, 120, 120),
+              )
+              ),
+              SizedBox(height: 20),
              SizedBox(
-              height: 100,
+              height: 80,
               width: 300,
               child: TextField(
                 keyboardType: TextInputType.emailAddress,
@@ -73,7 +83,7 @@ class Loginpage extends StatelessWidget {
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: BorderSide(color: const Color.fromARGB(255, 0, 0, 0)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   border: OutlineInputBorder(
@@ -85,12 +95,12 @@ class Loginpage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 330),
+            SizedBox(height: 260),
             Row(
               children: [
                 SizedBox(width: 20),
                 SizedBox(
-                    height:50,
+                    height:60,
                     width:140,
                     child:ElevatedButton(onPressed: (){
                       Navigator.pop(context);
@@ -102,8 +112,9 @@ class Loginpage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      child: Text("previous",style: TextStyle(
-                        color: Colors.white,
+                      child: Text("previous ",
+                      style: TextStyle(
+                        color: const Color.fromARGB(255, 255, 255, 255),
                         fontSize: 20,
                       ),))
                   ),
@@ -111,7 +122,7 @@ class Loginpage extends StatelessWidget {
                     width: 100,
                   ),
                   SizedBox(
-                    height: 50,
+                    height: 60,
                     width: 140,
                     child:ElevatedButton(onPressed: (){
                       Navigator.push(

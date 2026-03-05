@@ -100,51 +100,55 @@ class MusclePage extends StatelessWidget {
 
         future: ApiService.fetchExercisesByMuscle(muscle),
 
-        builder: (context, snapshot) {
+        builder: (context, exercises) {
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (exercises.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (snapshot.hasError) {
+          if (exercises.hasError) {
             return Center(
-              child: Text(snapshot.error.toString()),
+              child: Text(exercises.error.toString()),
             );
           }
 
-          final exercises = snapshot.data!;
-
-          if (exercises.isEmpty) {
+          if (exercises.data?.isEmpty ?? true) {
             return const Center(child: Text("No exercises found"));
           }
 
           return ListView.builder(
 
-            itemCount: exercises.length,
+            itemCount: exercises.data?.length ?? 0,
 
             itemBuilder: (context, index) {
 
-              final exercise = exercises[index];
+              final exercise = exercises.data![index];
 
-              return ListTile(
-
-                title: Text(exercise.name),
-
-                subtitle:
-                    Text("Equipment: ${exercise.equipment}"),
-
-                onTap: () {
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          ExercisePage(exercise: exercise),
-                    ),
-                  );
-
-                },
-              );
+              return Card(
+  margin: const EdgeInsets.symmetric(
+    horizontal: 16,
+    vertical: 8,
+  ),
+  child: ListTile(
+    contentPadding: const EdgeInsets.all(12),
+    title: Text(
+      exercise.name,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    subtitle: Text("Equipment: ${exercise.equipment}"),
+    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => ExercisePage(exercise: exercise),
+        ),
+      );
+    },
+  ),
+);
             },
           );
         },

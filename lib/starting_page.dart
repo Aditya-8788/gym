@@ -16,17 +16,18 @@ class StartingPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 35,
                 fontWeight: FontWeight.w900,
+                color: Colors.black,
                 ),
             ),
             SizedBox(height: 400),
             Text("dataBuild strength. Build discipline.Results start with consistency.Learn exercises. Understand muscles.Train smarter for better results.",style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w400,
-              color: Colors.grey,
+              color: const Color.fromARGB(255, 0, 0, 0),
             )),
             SizedBox(height: 50),
             SizedBox(
-              height: 50,
+              height: 60,
               width: 300,
               
               child: ElevatedButton(onPressed:() {
@@ -43,6 +44,7 @@ class StartingPage extends StatelessWidget {
                 style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
+                color: const Color.fromARGB(255, 255, 255, 255),
                 
                 ),
               ))

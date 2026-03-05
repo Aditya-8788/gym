@@ -54,13 +54,11 @@ class ApiService {
       List data = jsonDecode(response.body);
 
       // filter exercises by muscle
-      List filtered = data.where((exercise) {
-        List muscles = exercise["primaryMuscles"];
-        return muscles.contains(muscle.toLowerCase());
-      }).toList();
-
-      return filtered.map((e) => Exercise.fromJson(e)).toList();
-
+      return data
+    .where((exercise) =>
+        exercise["primaryMuscles"].contains(muscle.toLowerCase()))
+    .map((e) => Exercise.fromJson(e))
+    .toList();
     } else {
       throw Exception("Failed to load exercises");
     }
