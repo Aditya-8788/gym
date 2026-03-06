@@ -46,7 +46,23 @@ class FirstPage extends StatelessWidget {
                   ),
                 );
               },
-              child: Card(
+              child: Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 5,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.orangeAccent,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color.fromARGB(255, 112, 112, 112),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: const Offset(5, 3),
+                    ),
+                  ],
+                ),
                 child: Center(
                   child: Text(
                     muscles[index],
@@ -54,6 +70,7 @@ class FirstPage extends StatelessWidget {
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 0, 0, 0),
+                      backgroundColor: Colors.orangeAccent,
                     ),
                   ),
                 ),
