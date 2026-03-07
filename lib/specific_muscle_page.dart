@@ -36,34 +36,55 @@ class SpecificMusclePage extends StatelessWidget {
 
     return Scaffold(
 
-      appBar: AppBar(title: Text(muscle)),
+      appBar: AppBar(title: Text(muscle,
+      style: const TextStyle(
+        fontSize: 25,
+        fontWeight: FontWeight.bold,
+        color: Color.fromARGB(255, 255, 255, 255),
+      ),),),
+      
 
-      body: ListView.builder(
-
-        itemCount: subMuscles.length,
-
-        itemBuilder: (context, index) {
-
-          return ListTile(
-
-            title: Text(subMuscles[index]),
-
-            trailing: const Icon(Icons.arrow_forward),
-
-            onTap: () {
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) =>
-                      MusclePage(muscle: subMuscles[index]),
-                ),
-              );
-
-            },
-          );
-
-        },
+      body: Column(
+        children: [
+          SizedBox(height: 20,),
+          SizedBox(
+            height: 500,
+            child: ListView.builder(
+            
+              itemCount: subMuscles.length,
+            
+              itemBuilder: (context, index) {
+            
+                return ListTile(
+            
+                  title: Text("${index + 1}. ${subMuscles[index]}",
+                  style: TextStyle(
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                    ),
+                    ),
+            
+                  trailing: const Icon(Icons.arrow_forward),
+                  iconColor: Colors.black,
+            
+                  onTap: () {
+            
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            MusclePage(muscle: subMuscles[index]),
+                      ),
+                    );
+            
+                  },
+                );
+            
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

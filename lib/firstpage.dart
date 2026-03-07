@@ -67,7 +67,7 @@ class FirstPage extends StatelessWidget {
                   child: Text(
                     muscles[index],
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 23,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 0, 0, 0),
                       backgroundColor: Colors.orangeAccent,

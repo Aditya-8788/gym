@@ -15,7 +15,11 @@ class MusclePage extends StatelessWidget {
     return Scaffold(
 
       appBar: AppBar(
-        title: Text(muscle.toUpperCase()),
+        title: Text(muscle.toUpperCase(),style: TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+          color: const Color.fromARGB(255, 255, 255, 255),
+        ),),
       ),
 
       body: FutureBuilder<List<Exercise>>(
@@ -47,30 +51,32 @@ class MusclePage extends StatelessWidget {
               final exercise = exercises.data![index];
 
               return Card(
-  margin: const EdgeInsets.symmetric(
-    horizontal: 16,
-    vertical: 8,
-  ),
-  child: ListTile(
-    contentPadding: const EdgeInsets.all(12),
-    title: Text(
-      exercise.name,
-      style: const TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    subtitle: Text("Equipment: ${exercise.equipment}"),
-    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => ExercisePage(exercise: exercise),
-        ),
-      );
-    },
-  ),
-);
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                child: ListTile(
+                contentPadding: const EdgeInsets.all(12),
+                title: Text(
+                  exercise.name,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                  ),
+                  subtitle: Text("Equipment: ${exercise.equipment}",style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0))),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 16),iconColor: const Color.fromARGB(255, 0, 0, 0),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ExercisePage(exercise: exercise),
+                      ),
+                    );
+                  },
+                ),
+              );
             },
           );
         },
