@@ -1,33 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:gym/firstpage.dart';
-import 'package:gym/signuppage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Loginpage extends StatefulWidget {
-  const Loginpage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<Loginpage> createState() => _LoginpageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginpageState extends State<Loginpage> {
+class _SignupPageState extends State<SignupPage> {
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
 
-  Future<void> _login() async {
-    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter email and password')));
+  Future<void> _signup() async {
+    if (_nameController.text.isEmpty || _emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please fill all fields')));
       return;
     }
     setState(() {
       _isLoading = true;
     });
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+      // Update display name
+      await userCredential.user?.updateDisplayName(_nameController.text.trim());
+      
       if (mounted) {
         Navigator.pushReplacement(
           context,
@@ -37,7 +40,7 @@ class _LoginpageState extends State<Loginpage> {
     } on FirebaseAuthException catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.message ?? 'Login failed')),
+          SnackBar(content: Text(e.message ?? 'Signup failed')),
         );
       }
     } catch (e) {
@@ -57,6 +60,7 @@ class _LoginpageState extends State<Loginpage> {
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -74,7 +78,7 @@ class _LoginpageState extends State<Loginpage> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Login Page',
+                  'Signup Page',
                   style: TextStyle(
                     fontSize: 50,
                     fontWeight: FontWeight.w800,
@@ -84,6 +88,39 @@ class _LoginpageState extends State<Loginpage> {
               ),
             ),
             SizedBox(height: 40),
+            Text(
+              'Enter your name ',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: const Color.fromARGB(255, 120, 120, 120),
+              ),
+            ),
+            SizedBox(height: 20),
+            SizedBox(
+              height: 100,
+              width: 300,
+              child: TextField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.orange, width: 2.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: const Color.fromARGB(255, 4, 4, 4),
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  labelText: 'Name',
+                  prefixIcon: Icon(Icons.person, color: Colors.orange),
+                ),
+              ),
+            ),
             Text(
               'Enter your email ',
               style: TextStyle(
@@ -158,19 +195,6 @@ class _LoginpageState extends State<Loginpage> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SignupPage()),
-                );
-              },
-              child: Text(
-                "create account",
-                style: TextStyle(color: Colors.orange),
-              ),
-            ),
             SizedBox(height: 20),
             _isLoading 
                 ? const CircularProgressIndicator(color: Colors.orange)
@@ -206,7 +230,7 @@ class _LoginpageState extends State<Loginpage> {
                   height: 60,
                   width: 140,
                   child: ElevatedButton(
-                    onPressed: _isLoading ? null : _login,
+                    onPressed: _isLoading ? null : _signup,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepOrangeAccent,
                       minimumSize: const Size(40, 50),
@@ -215,7 +239,7 @@ class _LoginpageState extends State<Loginpage> {
                       ),
                     ),
                     child: Text(
-                      "login",
+                      "signup",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),

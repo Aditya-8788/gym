@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym/firstpage.dart';
 import 'package:gym/loginpage.dart';
 
 class StartingPage extends StatelessWidget {
@@ -19,7 +20,30 @@ class StartingPage extends StatelessWidget {
                 color: Colors.black,
                 ),
             ),
-            SizedBox(height: 400),
+            SizedBox(height: 200),
+            SizedBox(
+              height: 200,
+              width: 200,
+              child:ElevatedButton(onPressed:(){
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>  FirstPage()));
+              }, child: Text('Started',
+                style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: const Color.fromARGB(255, 255, 255, 255),
+                
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepOrangeAccent, 
+                minimumSize: const Size(40, 50), 
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+              ),
+            ),
+            SizedBox(height: 50),
             Text("dataBuild strength. Build discipline.Results start with consistency.Learn exercises. Understand muscles.Train smarter for better results.",style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w400,
