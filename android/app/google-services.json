@@ -12,7 +12,20 @@
           "package_name": "com.example.gym"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "307849261215-5g0ncpbp6pcu1itrbbv0qk0uu1fq1dv1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gym",
+            "certificate_hash": "6b41a035dc30e46043d60203203ec0c94a61f96c"
+          }
+        },
+        {
+          "client_id": "307849261215-bj2q459qmlf4m9cmn23s6lhnrj1buk9m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCMi5K7xX_S0REEcDTtrxWvsFW766qVaNA"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307849261215-bj2q459qmlf4m9cmn23s6lhnrj1buk9m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "307849261215-vrsuf2kvc4l5l7pslbp7d6nmhhk3t46j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gym"
+              }
+            }
+          ]
         }
       }
     }

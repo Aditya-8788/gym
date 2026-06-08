@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:gym/loginpage.dart';
+import 'package:gym/features/auth/presentation/pages/login_page.dart';
 
 class StartingPage extends StatelessWidget {
   const StartingPage({super.key});
@@ -37,10 +37,10 @@ class StartingPage extends StatelessWidget {
 
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigator.push(
-                  //   // context,
-                  //   // MaterialPageRoute(builder: (context) => Loginpage()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Loginpage()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepOrangeAccent,

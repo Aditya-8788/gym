@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:gym/starting_page.dart';
+
 import 'firebase_options.dart';
-import 'loginpage.dart';
-import 'blocs/auth/auth_bloc.dart';
-import 'blocs/exercise/exercise_bloc.dart';
+
+import 'features/auth/presentation/pages/starting_page.dart';
+
+import 'features/auth/data/datasources/auth_remote_datasource.dart';
+import 'features/auth/data/repositories/auth_repository_impl.dart';
+import 'features/auth/domain/usecases/login_user.dart';
+import 'features/auth/domain/usecases/signup_user.dart';
+import 'features/auth/domain/usecases/logout_user.dart';
+import 'features/auth/domain/usecases/sign_in_with_google.dart';
+import 'features/auth/presentation/bloc/auth_bloc.dart';
+
+import 'features/exercise/presentation/bloc/exercise_bloc.dart';
+import 'features/exercise/data/datasources/exercise_remote_datasource.dart';
+import 'features/profile/data/datasources/profile_remote_datasource.dart';
+import 'features/profile/data/repositories/profile_repository_impl.dart';
+import 'features/profile/domain/usecases/save_user_profile.dart';
+import 'features/profile/presentation/bloc/profile_bloc.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
@@ -18,10 +37,36 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authRepository = AuthRepositoryImpl(
+      AuthRemoteDataSourceImpl(),
+    );
+
+    final profileRepository = ProfileRepositoryImpl(
+      ProfileRemoteDataSourceImpl(),
+    );
+
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
-        BlocProvider<ExerciseBloc>(create: (context) => ExerciseBloc()),
+        BlocProvider<AuthBloc>(
+          create: (_) => AuthBloc(
+            loginUser: LoginUser(authRepository),
+            signupUser: SignupUser(authRepository),
+            logoutUser: LogoutUser(authRepository),
+            signInWithGoogle: SignInWithGoogle(authRepository),
+          ),
+        ),
+
+        BlocProvider<ExerciseBloc>(
+          create: (_) => ExerciseBloc(
+           remoteDataSource: ExerciseRemoteDataSource(),
+          ),
+        ),
+
+        BlocProvider<ProfileBloc>(
+          create: (_) => ProfileBloc(
+            saveUserProfile: SaveUserProfile(profileRepository),
+          ),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
