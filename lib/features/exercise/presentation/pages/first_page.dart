@@ -226,7 +226,7 @@ class FirstPage extends StatelessWidget {
         selectedItemColor: Colors.deepOrange,
         unselectedItemColor: Colors.grey,
         onTap: (index) {
-          if (index == 2) {
+          if (index == 1) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const ProfilePage()),

@@ -123,7 +123,7 @@ class ExercisePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      infoRow("Body Part", exercise.bodyPart),
+                      infoRow("Exercise type", exercise.bodyPart),
                       infoRow("Target", exercise.target),
                       infoRow("Equipment", exercise.equipment),
                     ],
