@@ -103,6 +103,20 @@
 //     );
 //   }
 // }
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gym/features/membership/data/repository/membership_repository_imp.dart';
+import 'package:gym/features/membership/domain/usecase/get_membership_plans.dart';
+import 'package:gym/features/payment/data/datasource/payment_remote_data_source_impl.dart';
+import 'package:gym/features/payment/data/repository/payment_repository_impl.dart';
+import 'package:gym/features/payment/domain/usecase/save_payment.dart';
+import 'package:gym/features/payment/presentation/bloc/payment_bloc.dart';
+
+import 'features/membership/data/datasource/membership_remote_data_source.dart';
+import 'features/membership/data/datasource/membership_remote_data_source_impl.dart';
+//import 'features/membership/data/repository/membership_repository_impl.dart';
+//import 'features/membership/domain/usecases/get_membership_plans.dart';
+import 'features/membership/presentation/bloc/membership_bloc.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -151,6 +165,32 @@ class MyApp extends StatelessWidget {
       ProfileRemoteDataSourceImpl(),
     );
 
+    final membershipRemoteDataSource =
+    MembershipRemoteDataSourceImpl(
+    firestore: FirebaseFirestore.instance,
+    );
+
+    final membershipRepository =
+    MembershipRepositoryImpl(
+    remoteDataSource: membershipRemoteDataSource,
+    );
+    final paymentRemoteDataSource =
+    PaymentRemoteDataSourceImpl(
+      firestore: FirebaseFirestore.instance,
+    );
+
+
+    final paymentRepository =
+        PaymentRepositoryImpl(
+          remoteDataSource: paymentRemoteDataSource,
+        );
+
+
+    final savePayment =
+        SavePayment(
+          repository: paymentRepository,
+        );
+
     return ScreenUtilInit(
       designSize: const Size(390, 844),
       minTextAdapt: true,
@@ -174,6 +214,18 @@ class MyApp extends StatelessWidget {
             BlocProvider<ProfileBloc>(
               create: (_) => ProfileBloc(
                 saveUserProfile: SaveUserProfile(profileRepository),
+              ),
+            ),
+            BlocProvider<MembershipBloc>(
+              create: (_) => MembershipBloc(
+                getMembershipPlans: GetMembershipPlans(
+                  repository: membershipRepository,
+                ),
+              ),
+            ),
+            BlocProvider<PaymentBloc>(
+              create: (_) => PaymentBloc(
+                savePayment: savePayment,
               ),
             ),
           ],
